@@ -13,7 +13,7 @@ function preload(){
 
 function setup(){
     createCanvas(400,600);
-    Image(img,0,0);
+    //image(img,0,0);
     for(var i = 0; i < total; i++){
         balls[i] = new ball();
     }

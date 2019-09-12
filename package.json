@@ -1,0 +1,21 @@
+{
+  "name": "flappybird",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "start": " browser-sync start --server -f -w"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/flxo25/flappybird.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/flxo25/flappybird/issues"
+  },
+  "homepage": "https://github.com/flxo25/flappybird#readme",
+  "dependencies": {
+    "browser-sync": "^2.26.7"
+  }
+}
