@@ -25,7 +25,7 @@ function pickOne(){
     }
     index--;
     let balls = savedBalls[index];
-    let child = new ball(balls.brain);
+    let child = new ball(balls.brain, sprites);
     child.mutate(); 
     return child;    
 }
@@ -38,5 +38,4 @@ function calculateFitness(){
     for(let ball of savedBalls){
         ball.fitness = ball.score/sum;
     }
-0    
 }   

@@ -9,6 +9,8 @@ var slider;
 var bg;
 var pipeup;
 var pipedown;
+var sprites = []
+var maxScore = 0;
 
 
 function keyPressed(){
@@ -22,15 +24,20 @@ function setup(){
     bg = loadImage('background.jpg');
     pipeup = loadImage('pipe-up.png');
     pipedown = loadImage('pipe-down.png');
+    sprites = [loadImage('bird.png'), loadImage('bird-down.png'), loadImage('bird-up.png')]
     createCanvas(400,600);
     slider = createSlider(1,100,1);
     for(var i = 0; i < total; i++){
-        balls[i] = new ball();
+        balls[i] = new ball(null, sprites);
     }
 }
 
 function draw(){
     background(bg);
+    fill(0,0,0)
+    textSize(20)
+    stroke(0,0,0)
+    text(this.maxScore, 30, 30)
     for(let n = 0; n < slider.value(); n++){
         if(counter % 60 == 0){
             pipes.push(new Pipe(pipeup, pipedown));
@@ -59,6 +66,7 @@ function draw(){
         for(let ball of balls){
             ball.think(pipes);
             ball.update();
+            if(Math.floor(ball.score/100) > maxScore) maxScore = Math.floor(ball.score/100).toString()
         }
 
         if(balls.length === 0){            

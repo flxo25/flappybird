@@ -1,5 +1,5 @@
 class ball{
-    constructor(brain){
+    constructor(brain, sprites){
         this.y = height / 2;
         this.x = 70;
 
@@ -9,6 +9,7 @@ class ball{
 
         this.score = 0;
         this.fitness = 0;
+        this.sprites = sprites;
 
         if(brain){
         	this.brain = brain.copy();
@@ -19,8 +20,8 @@ class ball{
 
     show(){
     	fill(235, 229, random(256));
-    	stroke(255);
-    	ellipse(this.x, this.y, 32, 32);
+        stroke(255);
+        image(this.sprites[this.velocity <= 0 ? 1 : this.velocity >= 1 ? 2 : 0], this.x, this.y, 32, 24);
     }
 
     think(pipes){
