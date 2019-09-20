@@ -6,6 +6,9 @@ var savedBalls = [];
 var elitism = [];
 var counter = 0;
 var slider;
+var bg;
+var pipeup;
+var pipedown;
 
 
 function keyPressed(){
@@ -16,6 +19,9 @@ function keyPressed(){
 }
 
 function setup(){
+    bg = loadImage('background.jpg');
+    pipeup = loadImage('pipe-up.png');
+    pipedown = loadImage('pipe-down.png');
     createCanvas(400,600);
     slider = createSlider(1,100,1);
     for(var i = 0; i < total; i++){
@@ -24,9 +30,10 @@ function setup(){
 }
 
 function draw(){
+    background(bg);
     for(let n = 0; n < slider.value(); n++){
         if(counter % 60 == 0){
-            pipes.push(new Pipe());
+            pipes.push(new Pipe(pipeup, pipedown));
         }
         counter++;
 
@@ -66,7 +73,9 @@ function draw(){
     }
 
     //Drawing stuff
-    background(52, 153, 235);
+    //background(52, 153, 235);
+    //background(loadImage('background.jpg'))
+    //image(loadImage('background.jpg'), 0, 0)
 
     for(let ball of balls){
         ball.show();
