@@ -50,11 +50,9 @@ class NeuralNetwork {
     this.setLearningRate();
     this.setActivationFunction();
 
-
   }
 
   predict(input_array) {
-
     // Generating the Hidden Outputs
     let inputs = Matrix.fromArray(input_array);
     let hidden = Matrix.multiply(this.weights_ih, inputs);
@@ -104,7 +102,6 @@ class NeuralNetwork {
     let gradients = Matrix.map(outputs, this.activation_function.dfunc);
     gradients.multiply(output_errors);
     gradients.multiply(this.learning_rate);
-
 
     // Calculate deltas
     let hidden_T = Matrix.transpose(hidden);
@@ -163,7 +160,7 @@ class NeuralNetwork {
   mutate(rate) {
     function mutate(val) {
       if (Math.random() < rate) {
-        // return 2 * Math.random() - 1;
+        //return 2 * Math.random() - 1;
         return val + randomGaussian(0, 0.1);
       } else {
         return val;
