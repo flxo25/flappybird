@@ -15,17 +15,38 @@ function nextGeneration(){
     saveBirds = [];
 }
 
-function pickOne(){
-    var index = 0;
-    var r = random(1);
-    //console.log(savedBalls);
-    while(r > 0){
-        r = r - savedBalls[index].fitness;
-        index++;
-    }
-    index--;
-    let balls = savedBalls[index];
-    let child = new ball(balls.brain, sprites);
+function selection(){    
+    //Baker sus with 2 pointer
+    var index1 = 0;
+    var index2 = 0;
+    var randnum = random(1);
+    var r1 = random(0.5);
+    var r2 = random(0.5,1);
+    
+    while(r2 > 0){
+        r2 = r2 - savedBalls[index2].fitness;
+        index2++;
+
+        if(r1 === 0){
+            index1--;    
+        } else{
+            r1 = r1 - savedBalls[index1].fitness;
+            index1++;
+        }
+    } index2--;
+
+    let parent1 = savedBalls[index1];
+    let parent2 = savedBalls[index2];
+
+    //gak mau terus crossover
+    //jadi crossovernya kadang-kadang aja
+    //biar asik
+    if(randnum > 0.5){
+        crossover(p1,p2);
+    } 
+
+    let child = new ball(p1.brain);
+    
     child.mutate(); 
     return child;    
 }
@@ -38,4 +59,8 @@ function calculateFitness(){
     for(let ball of savedBalls){
         ball.fitness = ball.score/sum;
     }
-}   
+}
+
+function crossover(p1,p2){
+    p1.brain.weights_ih = p2.brain.weights_ih;
+}

@@ -12,7 +12,6 @@ var pipedown;
 var sprites = []
 var maxScore = 0;
 
-
 function keyPressed(){
     if (key === "s"){
         let ball =balls[0];
@@ -66,6 +65,7 @@ function draw(){
         for(let ball of balls){
             ball.think(pipes);
             ball.update();
+//            console.log(ball.score)
             if(Math.floor(ball.score/100) > maxScore) maxScore = Math.floor(ball.score/100).toString()
         }
 
