@@ -94,9 +94,10 @@ function draw(){
     for(let pipe of pipes){
         pipe.show();
     }
-    textSize(20)
+    textSize(17)
     stroke(0,0,0)
     text(`Generation score: ${this.generationScore}`, 30, 30)
     text(`Best score: ${this.maxScore}`, 30, 60)
     text(`Generation: ${this.generation}`, 30, 90)
+    text(`Alive: ${this.balls.length}`, 30, 120)
 }
