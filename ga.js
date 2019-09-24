@@ -1,6 +1,5 @@
 function nextGeneration(){    
     calculateFitness();
-    console.log("Generation");
     for(let i = 0; i < total; i++){
         if(i > total - 11){
             if(elitism[i-(total - 10)].fitness < savedBalls[i].fitness){
@@ -13,8 +12,6 @@ function nextGeneration(){
         }
     }
     saveBirds = [];
-    generation++;
-    generationScore = 0;
 }
 
 function selection(){    

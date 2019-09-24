@@ -80,6 +80,8 @@ function draw(){
             counter = 0;
             nextGeneration();
             pipes = [];
+            generation++;
+            generationScore = 0;
         }
 
     }
