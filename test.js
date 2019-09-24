@@ -4,6 +4,7 @@ var balls = [];
 var pipes = [];
 var savedBalls = [];
 var elitism = [];
+var matingPool = []
 var counter = 0;
 var slider;
 var bg;
@@ -37,7 +38,7 @@ function draw(){
     background(bg);
     fill(0,0,0)
     for(let n = 0; n < slider.value(); n++){
-        if(counter % 60 == 0){
+        if(counter % 55 == 0){
             pipes.push(new Pipe(pipeup, pipedown));
         }
         counter++;
@@ -74,8 +75,9 @@ function draw(){
         }
 
         if(balls.length === 0){            
-            for(i=0;i<10;i++){
-                elitism[i] = savedBalls[i+total-10];
+            for(i=0;i<38;i++){
+                elitism[i] = savedBalls[i+total-38];
+                elitism[i].score = 0;
             }
             counter = 0;
             nextGeneration();

@@ -11,7 +11,6 @@ class ball{
         this.fitness = 0;
 		this.sprites = sprites;
 		this.score = false;
-		this.color = "#"+((1<<24)*Math.random()|0).toString(16)
 
         if(brain){
         	this.brain = brain.copy();
@@ -23,10 +22,7 @@ class ball{
     show(){
     	fill(235, 229, random(256));
 		stroke(255);
-		let rgb = this.hexTorgb(this.color)
-		//tint(rgb[0], rgb[1], rgb[2])
 		image(this.sprites[this.velocity <= 0 ? 1 : this.velocity >= 1 ? 2 : 0], this.x, this.y, 32, 24);
-		//noTint()
     }
 
     think(pipes){
@@ -71,10 +67,6 @@ class ball{
     }
 
 	mutate(){
-		this.brain.mutate(0.2);
+		this.brain.mutate(0.2, 0.15);
 	}    
-
-	hexTorgb(hex) {
-		return ['0x' + hex[1] + hex[2] | 0, '0x' + hex[3] + hex[4] | 0, '0x' + hex[5] + hex[6] | 0];
-	}
 }

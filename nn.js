@@ -157,11 +157,11 @@ class NeuralNetwork {
     return new NeuralNetwork(this);
   }
 
-  mutate(rate) {
+  mutate(rand, rate) {
     function mutate(val) {
-      if (Math.random() < rate) {
+      if (Math.random() < rand) {
         //return 2 * Math.random() - 1;
-        return val + randomGaussian(0, 0.1);
+        return val + randomGaussian(0, rate);
       } else {
         return val;
       }

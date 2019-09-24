@@ -1,52 +1,41 @@
 function nextGeneration(){    
     calculateFitness();
+    savedBalls.reverse()
+    var offspring = selection()
+    offspring = offspring.concat(elitism)
     for(let i = 0; i < total; i++){
-        if(i > total - 11){
-            if(elitism[i-(total - 10)].fitness < savedBalls[i].fitness){
-                balls[i] = savedBalls[i];
-            } else {
-                balls[i] = elitism[i-(total - 10)];
-            }
-        } else {
-            balls[i] = selection();
-        }
+        //console.log(i,offspring[i])
+        balls[i] = offspring[i]
     }
-    saveBirds = [];
+    savedBalls = [];
+    for(let i = 0; i < total; i++) {
+        if(balls[i].score > 0) console.log('a')
+    }
 }
 
 function selection(){    
     //Baker sus with 2 pointer
-    savedBalls = savedBalls.reverse()
-    var index1 = 0;
-    var index2 = 0;
-    var randnum = random(1);
-    var r1 = random(0.5);
-    var r2 = random(0.5,1);
-    
-    while(r1 > 0){
-        r1 = r1 - savedBalls[index1].fitness;
-        index1++;
-    } index1--;
-
-    while(r2 > 0){
-        r2 = r2 - savedBalls[index2].fitness;
-        index2++;
-    } index2--;
-    //console.log(index1)
-    let parent1 = savedBalls[index1];
-    let parent2 = savedBalls[index2];
-
-    //gak mau terus crossover
-    //jadi crossovernya kadang-kadang aja
-    //biar asik
-    if(randnum > 0.5){
-        crossover(parent1,parent2);
-    } 
-
-    let child = new ball(parent1.brain,sprites);
-    
-    child.mutate(); 
-    return child;    
+    const pointer = 22;
+    var index = new Array(pointer).fill(0);
+    var r = []
+    for(let i = 0; i < pointer; i++) r[i] = random(i/pointer, (i+1)/pointer);
+    for(let i = 0; i < pointer; i++) {
+        while(r[i] > 0) {
+            r[i] = r[i] - savedBalls[index[i]].fitness;
+            index[i] = index[i] + 1;
+        } index[i] = index[i] - 1;
+    }
+    var offspring = []
+    for(let i = 0; i < pointer-1; i++) {
+        for(let j = i+1; j < pointer; j++) {
+            let child = crossover(savedBalls[index[i]], savedBalls[index[j]])
+            child[0].mutate()
+            child[1].mutate()
+            offspring.push(child[0])
+            offspring.push(child[1])
+        }
+    }
+    return offspring;    
 }
 
 function calculateFitness(){
@@ -60,5 +49,8 @@ function calculateFitness(){
 }
 
 function crossover(p1,p2){
+    var tmp = p1.brain.weights_ih;
     p1.brain.weights_ih = p2.brain.weights_ih;
+    p2.brain.weights_ih = tmp
+    return [new ball(p1.brain, sprites), new ball(p2.brain, sprites)]
 }
