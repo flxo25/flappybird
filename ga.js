@@ -8,9 +8,6 @@ function nextGeneration(){
         balls[i] = offspring[i]
     }
     savedBalls = [];
-    for(let i = 0; i < total; i++) {
-        if(balls[i].score > 0) console.log('a')
-    }
 }
 
 function selection(){    
@@ -18,7 +15,8 @@ function selection(){
     const pointer = 22;
     var index = new Array(pointer).fill(0);
     var r = []
-    for(let i = 0; i < pointer; i++) r[i] = random(i/pointer, (i+1)/pointer);
+    r[0] = random(0, 1/pointer)
+    for(let i = 1; i < pointer; i++) r[i] = r[i-1] + (1/pointer)
     for(let i = 0; i < pointer; i++) {
         while(r[i] > 0) {
             r[i] = r[i] - savedBalls[index[i]].fitness;
@@ -43,8 +41,10 @@ function calculateFitness(){
     for(let ball of savedBalls){
         sum += ball.score;
     }
+    let totalFitness = 0
     for(let ball of savedBalls){
         ball.fitness = ball.score/sum;
+        totalFitness += ball.fitness
     }
 }
 

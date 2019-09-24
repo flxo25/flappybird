@@ -67,6 +67,6 @@ class ball{
     }
 
 	mutate(){
-		this.brain.mutate(0.2, 0.15);
+		this.brain.mutate(0.1, 0.1);
 	}    
 }

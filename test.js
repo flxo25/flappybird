@@ -77,7 +77,7 @@ function draw(){
         if(balls.length === 0){            
             for(i=0;i<38;i++){
                 elitism[i] = savedBalls[i+total-38];
-                elitism[i].score = 0;
+                //elitism[i].score = 0;
             }
             counter = 0;
             nextGeneration();
