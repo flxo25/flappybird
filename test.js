@@ -10,7 +10,9 @@ var bg;
 var pipeup;
 var pipedown;
 var sprites = []
+var generationScore = 0;
 var maxScore = 0;
+var generation = 1;
 
 function keyPressed(){
     if (key === "s"){
@@ -34,9 +36,6 @@ function setup(){
 function draw(){
     background(bg);
     fill(0,0,0)
-    textSize(20)
-    stroke(0,0,0)
-    text(this.maxScore, 30, 30)
     for(let n = 0; n < slider.value(); n++){
         if(counter % 60 == 0){
             pipes.push(new Pipe(pipeup, pipedown));
@@ -45,6 +44,11 @@ function draw(){
 
         for(var i = pipes.length-1;i >= 0; i--){
             pipes[i].update();
+            if(!pipes[i].score && pipes[i].x <= 70) {
+                pipes[i].score = true;
+                generationScore++;
+                if(generationScore > maxScore) maxScore = generationScore;
+            }
             for(let j = balls.length-1; j >= 0; j--){
                 if(pipes[i].hits(balls[j])){
                     savedBalls.push(balls.splice(j,1)[0]);
@@ -66,7 +70,7 @@ function draw(){
             ball.think(pipes);
             ball.update();
 //            console.log(ball.score)
-            if(Math.floor(ball.score/100) > maxScore) maxScore = Math.floor(ball.score/100).toString()
+            //if(Math.floor(ball.score/100) > maxScore) maxScore = Math.floor(ball.score/100).toString()
         }
 
         if(balls.length === 0){            
@@ -84,12 +88,15 @@ function draw(){
     //background(52, 153, 235);
     //background(loadImage('background.jpg'))
     //image(loadImage('background.jpg'), 0, 0)
-
     for(let ball of balls){
         ball.show();
     }
-
     for(let pipe of pipes){
         pipe.show();
     }
+    textSize(20)
+    stroke(0,0,0)
+    text(`Generation score: ${this.generationScore}`, 30, 30)
+    text(`Best score: ${this.maxScore}`, 30, 60)
+    text(`Generation: ${this.generation}`, 30, 90)
 }
