@@ -41,16 +41,15 @@ function calculateFitness(){
     for(let ball of savedBalls){
         sum += ball.score;
     }
-    let totalFitness = 0
     for(let ball of savedBalls){
         ball.fitness = ball.score/sum;
-        totalFitness += ball.fitness
     }
 }
 
 function crossover(p1,p2){
-    var tmp = p1.brain.weights_ih;
-    p1.brain.weights_ih = p2.brain.weights_ih;
-    p2.brain.weights_ih = tmp
-    return [new ball(p1.brain, sprites), new ball(p2.brain, sprites)]
+    const b1 = p1.brain.copy(), b2 = p2.brain.copy()
+    var tmp = b1.weights_ih;
+    b1.weights_ih = b2.weights_ih;
+    b2.weights_ih = tmp
+    return [new ball(b1, sprites), new ball(b2, sprites)]
 }
