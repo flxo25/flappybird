@@ -1,6 +1,4 @@
 // let m = new Matrix(3,2);
-
-
 class Matrix {
   constructor(rows, cols) {
     this.rows = rows;
@@ -43,8 +41,8 @@ class Matrix {
     return arr;
   }
 
-  randomize() {
-    return this.map(e => Math.random() * 2 - 1);
+  randomize(input) {
+    return this.map(e => randomGaussian(0,1) * sqrt(1/input));
   }
 
   add(n) {

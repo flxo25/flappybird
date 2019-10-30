@@ -70,8 +70,6 @@ function draw(){
         for(let ball of balls){
             ball.think(pipes);
             ball.update();
-//            console.log(ball.score)
-            //if(Math.floor(ball.score/100) > maxScore) maxScore = Math.floor(ball.score/100).toString()
         }
 
         if(balls.length === 0){            

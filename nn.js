@@ -37,19 +37,18 @@ class NeuralNetwork {
 
       this.weights_ih = new Matrix(this.hidden_nodes, this.input_nodes);
       this.weights_ho = new Matrix(this.output_nodes, this.hidden_nodes);
-      this.weights_ih.randomize();
-      this.weights_ho.randomize();
+      this.weights_ih.randomize(this.input_nodes);
+      this.weights_ho.randomize(this.hidden_nodes);
 
       this.bias_h = new Matrix(this.hidden_nodes, 1);
       this.bias_o = new Matrix(this.output_nodes, 1);
-      this.bias_h.randomize();
-      this.bias_o.randomize();
+      this.bias_h.randomize(1);
+      this.bias_o.randomize(1);
     }
 
     // TODO: copy these as well
     this.setLearningRate();
     this.setActivationFunction();
-
   }
 
   predict(input_array) {
@@ -73,7 +72,7 @@ class NeuralNetwork {
     this.learning_rate = learning_rate;
   }
 
-  setActivationFunction(func = sigmoid) {
+  setActivationFunction(func = tanh) {
     this.activation_function = func;
   }
 
@@ -157,11 +156,11 @@ class NeuralNetwork {
     return new NeuralNetwork(this);
   }
 
-  mutate(rand, rate) {
+  mutate(rate, rand) {
     function mutate(val) {
-      if (Math.random() < rand) {
+      if (Math.random() < rate) {
         //return 2 * Math.random() - 1;
-        return val + randomGaussian(0, rate);
+        return val + randomGaussian(0, rand);
       } else {
         return val;
       }
