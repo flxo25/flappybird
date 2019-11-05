@@ -17,7 +17,7 @@ var generation = 1;
 
 function keyPressed(){
     if (key === "s"){
-        let ball =balls[0];
+        let ball = balls[0];
         saveJSON(ball.brain,'ball.json');
     }
 }

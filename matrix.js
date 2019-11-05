@@ -42,7 +42,7 @@ class Matrix {
   }
 
   randomize(input) {
-    return this.map(e => randomGaussian(0,1) * sqrt(1/input));
+    return this.map(e => randomGaussian(0,1) );
   }
 
   add(n) {

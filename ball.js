@@ -58,7 +58,7 @@ class ball{
     update(){
     	this.score++;
     	this.velocity += this.gravity;
-    	//this.velocity *= 0.9
+    	this.velocity *= 0.85;
         this.y += this.velocity;
     }
 
@@ -67,6 +67,7 @@ class ball{
     }
 
 	mutate(){
-		this.brain.mutate(0.1, 0.1);
+		//mutation rate and random number
+		this.brain.mutate(0.1,0.1);
 	}    
 }

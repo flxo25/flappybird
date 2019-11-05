@@ -159,12 +159,12 @@ class NeuralNetwork {
   mutate(rate, rand) {
     function mutate(val) {
       if (Math.random() < rate) {
-        //return 2 * Math.random() - 1;
         return val + randomGaussian(0, rand);
       } else {
         return val;
       }
     }
+    
     this.weights_ih.map(mutate);
     this.weights_ho.map(mutate);
     this.bias_h.map(mutate);

@@ -4,14 +4,13 @@ function nextGeneration(){
     var offspring = selection()
     offspring = offspring.concat(elitism)
     for(let i = 0; i < total; i++){
-        //console.log(i,offspring[i])
         balls[i] = offspring[i]
     }
     savedBalls = [];
 }
 
 function selection(){    
-    //Baker sus with 2 pointer
+    //Baker sus with 22 pointer
     const pointer = 22;
     var index = new Array(pointer).fill(0);
     var r = []
@@ -47,9 +46,17 @@ function calculateFitness(){
 }
 
 function crossover(p1,p2){
-    const b1 = p1.brain.copy(), b2 = p2.brain.copy()
-    var tmp = b1.weights_ih;
-    b1.weights_ih = b2.weights_ih;
-    b2.weights_ih = tmp
+    const b1 = p1.brain.copy(), b2 = p2.brain.copy();
+    // var tmp = b1.weights_ih;
+    // b1.weights_ih = b2.weights_ih;
+    // b2.weights_ih = tmp;
+    var tmp = b1.weights_ih,alpha = 0.5;
+    for(let i=0; i < b1.weights_ih.rows; i++){
+        for(let j=0; j < b1.weights_ih.cols; j++){
+            b1.weights_ih.data[i][j] = b2.weights_ih.data[i][j]*alpha + (1-alpha)*tmp.data[i][j];
+            b2.weights_ih.data[i][j] = tmp.data[i][j]*alpha + b2.weights_ih.data[i][j]*(1-alpha);
+        }
+    }
+
     return [new ball(b1, sprites), new ball(b2, sprites)]
 }
