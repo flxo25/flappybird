@@ -1,10 +1,10 @@
 function nextGeneration(){    
     calculateFitness();
-    savedBalls.reverse()
-    var offspring = selection()
-    offspring = offspring.concat(elitism)
+    savedBalls.reverse();
+    var offspring = selection();
+    offspring = offspring.concat(elitism);
     for(let i = 0; i < total; i++){
-        balls[i] = offspring[i]
+        balls[i] = offspring[i];
     }
     savedBalls = [];
 }
@@ -13,8 +13,9 @@ function selection(){
     //Baker sus with 22 pointer
     const pointer = 22;
     var index = new Array(pointer).fill(0);
-    var r = []
+    var r = [];
     r[0] = random(0, 1/pointer)
+
     for(let i = 1; i < pointer; i++) r[i] = r[i-1] + (1/pointer)
     for(let i = 0; i < pointer; i++) {
         while(r[i] > 0) {
@@ -22,7 +23,8 @@ function selection(){
             index[i] = index[i] + 1;
         } index[i] = index[i] - 1;
     }
-    var offspring = []
+
+    var offspring = [];
     for(let i = 0; i < pointer-1; i++) {
         for(let j = i+1; j < pointer; j++) {
             let child = crossover(savedBalls[index[i]], savedBalls[index[j]])
@@ -47,14 +49,12 @@ function calculateFitness(){
 
 function crossover(p1,p2){
     const b1 = p1.brain.copy(), b2 = p2.brain.copy();
-    // var tmp = b1.weights_ih;
-    // b1.weights_ih = b2.weights_ih;
-    // b2.weights_ih = tmp;
-    var tmp = b1.weights_ih,alpha = 0.5;
-    for(let i=0; i < b1.weights_ih.rows; i++){
-        for(let j=0; j < b1.weights_ih.cols; j++){
-            b1.weights_ih.data[i][j] = b2.weights_ih.data[i][j]*alpha + (1-alpha)*tmp.data[i][j];
-            b2.weights_ih.data[i][j] = tmp.data[i][j]*alpha + b2.weights_ih.data[i][j]*(1-alpha);
+
+    var tmp = b1.weights_ho,alpha = 0.7;
+    for(let i=0; i < b1.weights_ho.rows; i++){
+        for(let j=0; j < b1.weights_ho.cols; j++){
+            b1.weights_ho.data[i][j] = b2.weights_ho.data[i][j]*alpha + (1-alpha)*tmp.data[i][j];
+            b2.weights_ho.data[i][j] = tmp.data[i][j]*alpha + b2.weights_ho.data[i][j]*(1-alpha);
         }
     }
 

@@ -23,7 +23,7 @@ function keyPressed(){
 }
 
 function setup(){
-    bg = loadImage('background.jpg');
+    bg = loadImage('b1.jpg');
     pipeup = loadImage('pipe-up.png');
     pipedown = loadImage('pipe-down.png');
     sprites = [loadImage('bird.png'), loadImage('bird-down.png'), loadImage('bird-up.png')]
@@ -70,12 +70,14 @@ function draw(){
         for(let ball of balls){
             ball.think(pipes);
             ball.update();
+            if(generation === 100 || generationScore === 500){
+                noLoop();
+            }
         }
 
         if(balls.length === 0){            
             for(i=0;i<38;i++){
                 elitism[i] = savedBalls[i+total-38];
-                //elitism[i].score = 0;
             }
             counter = 0;
             nextGeneration();
@@ -96,8 +98,9 @@ function draw(){
     for(let pipe of pipes){
         pipe.show();
     }
-    textSize(17)
-    stroke(0,0,0)
+    textSize(17);
+    fill(0,0,0);
+    stroke(0,0,0);
     text(`Generation score: ${this.generationScore}`, 30, 30)
     text(`Best score: ${this.maxScore}`, 30, 60)
     text(`Generation: ${this.generation}`, 30, 90)
